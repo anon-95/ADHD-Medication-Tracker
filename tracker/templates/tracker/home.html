@@ -1,0 +1,20 @@
+{% extends "tracker/layout.html" %}
+{% block content %}
+    {% for journal in journals %}
+    <article class="media content-section d-flex align-items-start">
+            <img class = "rounded-circle article-img mr-3" src = "{{  journal.author.profile.image.url  }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href=#>{{ journal.author }}</a>
+                    <small class="text-muted">{{ journal.date_posted|date:"F d, Y" }}</small>
+                </div>
+                <h2><a class="article-title" href="{% url 'journal-single' journal.id %}">Day _ of {{ journal.author.profile.medication }}</a></h2>
+                <h4 class="article-content">{{ journal.title }}</h3>
+
+                <p class="article-content">{{ journal.content|slice:":100" }}</p>
+            </div>
+        </article>
+    {% empty %}
+        <p>No journals yet.</p>
+    {% endfor %}
+{% endblock content %}
