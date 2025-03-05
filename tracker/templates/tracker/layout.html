@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{% static 'tracker/main.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/509/509694.png">
+    {% if title %}
+    <title>ADHD Tracker : {{ title }}</title>
+    {% else %}
+    <title>ADHD Tracker</title>
+    {% endif %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+        <!-- <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd"> -->
+
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'tracker-index' %}">ADHD Tracker</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <!-- left side -->
+                    <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'tracker-index' %}">Home </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'tracker-about' %}">About</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Quick Links
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledb y="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'journal_create' %}">Daily Check-In</a></li>
+                                <li><a class="dropdown-item" href="{% url 'statistics' %}">Statistics</a></li>
+                                <li><a class="dropdown-item" href="{% url 'streaks' %}">Streaks</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <!-- right side -->
+                    <ul class="navbar-nav ms-auto">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link">Logout</button>
+                            </form>
+                        </li>
+
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class = "alert alert-{{  message.tags  }}">
+                            {{  message  }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-4">
+                {% if user.is_authenticated %}
+
+                <div class="content-section">
+                    <h3>Quick Links</h3>
+                    <p class="text-muted">
+                        Here are links to the different features of this website.
+                    </p>
+                    <ul class="list-group sidebar">
+                        <li class="list-group-item list-group-item-light"><a href="{% url 'journal_create' %}"> Daily Check-In </a> </li>
+                        <li class="list-group-item list-group-item-light"><a href="{% url 'statistics' %}">Statistics</a></li>
+                        <li class="list-group-item list-group-item-light"><a href="{% url 'streaks' %}"> Streaks </a> </li>
+                        <li class="list-group-item list-group-item-light">anything else i think of</li>
+                    </ul>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

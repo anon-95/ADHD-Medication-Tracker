@@ -1,0 +1,27 @@
+{% extends "tracker/layout.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section container mt-4">
+        <div class="d-flex align-items-center">
+            <img class="rounded-circle" src="https://i.pinimg.com/originals/c1/32/d7/c132d7e0f61911295d126ccb521ba024.jpg" alt="Coin" style="width: 80px; height: 80px; object-fit: cover;">    
+            <div class="ms-3">
+                <h2 class="account-heading">{{ user.username }}'s Streak</h2>
+                <p class="text-secondary mb-0">You have a streak of 
+                    <span class="streak-days">{{  streak  }} days</span>. 
+                    Keep it up!🚀</p>
+            </div>
+        </div>
+    </div>
+    <div class="content-section container mt-4">
+        <div class="d-flex align-items-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3225/3225196.png" alt="Coin" style="width: 80px; height: 80px; object-fit: scale-down;">    
+            <div class="ms-3">
+                <h2 class="account-heading">Streak Shop</h2>
+                <p class="text-secondary mb-0">coming soon</p>
+                <p class="text-secondary mb-0">prolly never who am i kidding lol</p>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

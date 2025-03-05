@@ -1,0 +1,19 @@
+{% extends "tracker/layout.html" %}
+{% block content %}
+<article class="media content-section d-flex align-items-start">
+  <img class = "rounded-circle article-img mr-3" src = "{{  object.author.profile.image.url  }}">
+  <div class="media-body">
+      <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.author }}</a>
+          <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'journal-update' journal.id %}">Edit</a>
+
+      </div>
+      <h2 class="article-title">Day  {{ object.day_number  }} of {{ object.author.profile.medication }}</h2>
+      <h4 class="article-content">{{ object.title }}</h3>
+      <p class="article-content">Remembered: {{ object.remembered }}</p>
+      <p class="article-content">{{ object.mood }}</p>
+      <p class="article-content">{{ object.notes }}</p>
+  </div>
+</article>
+{% endblock content %}

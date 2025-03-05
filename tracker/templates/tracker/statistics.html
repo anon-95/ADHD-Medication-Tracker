@@ -1,0 +1,34 @@
+{% extends "tracker/layout.html" %}
+{% block content %}
+<h1>Daily Check-In Statistics</h1>
+
+<h3>How Often Medication was Remembered</h3>
+<!-- Medication Reminder Pie Chart -->
+<div id="medication-chart"></div>
+    <script style="width:100%; height:auto;">
+    var medicationChartData = JSON.parse('{{ medication_chart_json|escapejs }}');
+    Plotly.newPlot('medication-chart', medicationChartData);
+</script>
+<h3>Journal Frequency</h3>
+<!-- Journal Frequency Bar Chart -->
+<div id="frequency-chart"></div>
+    <script style="width:100%; height:auto;">
+    var frequencyChartData = JSON.parse('{{ frequency_chart_json|escapejs }}');
+    Plotly.newPlot('frequency-chart', frequencyChartData);
+</script>
+
+<h3>Mood Distribution</h3>
+<!-- Mood Distribution Pie Chart -->
+<div id="mood-chart"></div>
+    <script style="width:100%; height:auto;">
+    var moodChartData = JSON.parse('{{ mood_chart_json|escapejs }}');
+    Plotly.newPlot('mood-chart', moodChartData);
+</script>
+<!-- Mood Distribution Pie Chart -->
+<h3>Mood Over Time</h3>
+<div id="mood-line-chart"></div>
+    <script style="width:100%; height:auto;">
+    var moodChartData = JSON.parse('{{ progression_chart_json|escapejs }}');
+    Plotly.newPlot('mood-line-chart', moodChartData);
+</script>
+{% endblock content %}
